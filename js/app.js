@@ -13,6 +13,7 @@ resetCards();
 
 const deck = document.querySelector('.deck');
 
+//A function that shuffles the deck with the help of the provided shuffle function
 function shuffleDeck() {
 	const cardsToShuffle = Array.from(document.querySelectorAll('.deck li'));
 	const shuffledCards = shuffle(cardsToShuffle);
@@ -28,8 +29,7 @@ shuffleDeck();
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
-
-
+//Event Listener for click on the cards and other actions to be intiated on a click
 deck.addEventListener('click',event =>{
 	const clickTarget = event.target;
 	if (isClickValid(clickTarget)){
@@ -58,6 +58,7 @@ function addToggleCards(clickTarget){
 	console.log(toggledCards);
 }
 
+//A function that checks for matching pair of cards and initiates gameOver function on successfully completing the game
 function checkForMatch () {
 	if (
 		toggledCards[0].firstElementChild.className === toggledCards[1].firstElementChild.className
@@ -80,6 +81,7 @@ function checkForMatch () {
 	}
 }
 
+//This function is used in the above Event Listener
 function isClickValid (clickTarget) {
 	return (
 		clickTarget.classList.contains('card') && !clickTarget.classList.contains('match') && toggledCards.length < 2 && !toggledCards.includes(clickTarget)
@@ -133,6 +135,7 @@ function stopClock() {
 	clearInterval(clockId);
 }
 
+//Function to show the game over Modal
 function toggleModal() {
 	const modal = document.querySelector('.modal_background');
 	if(modal.classList.contains('hide')) {
@@ -142,6 +145,7 @@ function toggleModal() {
 	}
 }
 
+//Function to display the Game Statistics of the player
 function writeModalStats() {
 	const timeStat = document.querySelector('.modal_time');
 	const clockTime = document.querySelector('.clock').innerHTML;
@@ -155,6 +159,7 @@ function writeModalStats() {
 	starsStat.innerHTML = `Stars = ${stars}`;
 }
 
+//Function to calculate the stars recieved by the player
 function getStars() {
 	stars = document.querySelectorAll('.stars li');
 	starCount = 0;
@@ -167,14 +172,17 @@ function getStars() {
 	return starCount;
 }
 
+//Close button will close the modal on a click
 document.querySelector('.modal_cancel').addEventListener('click', () => {
 	toggleModal();
 });
 
+//Replay button will reset the game on a click
 document.querySelector('.modal_replay').addEventListener('click', () => {
 	replayGame();
 });
 
+//Restart button will restart the game on a click
 document.querySelector('.restart').addEventListener('click', resetGame);
 
 
